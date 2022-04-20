@@ -71,7 +71,8 @@ void cmd_pass(client_t *client, int ac, char *av[]);
 void cmd_quit(client_t *client, int ac, char *av[]);
 void cmd_pwd(client_t *client, int ac, char *av[]);
 void cmd_noop(client_t *client, int ac, char *av[]);
-
+void cmd_help(client_t *client, int ac, char *av[]);
+void cmd_port(client_t *client, int ac, char *av[]);
 
 client_t *get_client_ctrl(int fd, server_t *server);
 
@@ -105,6 +106,8 @@ void run_cmd(client_t *client, char *param);
 int handle_data_socket_fd(int fd, server_t *server);
 
 int handle_ctrl_socket_fd(int fd, server_t *server);
+
+void list_commands(client_t *client);
 
 struct response {
     int code;

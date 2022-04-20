@@ -32,6 +32,8 @@ SRC =	src/util_ip.c \
 		src/cmd_quit.c \
 		src/cmd_pwd.c \
 		src/cmd_noop.c \
+		src/cmd_help.c \
+		src/cmd_port.c \
 		src/client_send_reply.c \
 		src/client_write.c \
 		src/client_read.c \

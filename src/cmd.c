@@ -21,8 +21,18 @@ const struct cmd_s CMDS[] = {
     { "QUIT", cmd_quit },
     { "EXIT", cmd_quit },
     { "PWD", cmd_pwd },
-    { "NOOP", cmd_noop }
+    { "NOOP", cmd_noop },
+    { "HELP", cmd_help },
+    { "PORT", cmd_port }
 };
+
+void list_commands(client_t *client)
+{
+    long unsigned int i = 0;
+
+    for (i = 0; i < sizeof(CMDS) / sizeof(struct cmd_s); i++)
+        printf_client(client, S_CTRL, " %s"CRLF, CMDS[i].name);
+}
 
 void cmd(client_t *client, int ac, char *av[])
 {

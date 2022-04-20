@@ -23,11 +23,10 @@
 #include "util_error.h"
 #include "myftp.h"
 
-void cmd_user(client_t *client, int ac, char *av[])
+void cmd_help(client_t *client, int ac UNUSED, char *av[] UNUSED)
 {
-    if (ac != 2)
-        return (void)send_ctrl_reply(client, ERR_CMD_UNKNOWN);
-    client->logged_in = false;
-    strncpy(client->user, av[1], (sizeof(client->user) / sizeof(char)) - 1);
-    send_ctrl_reply(client, SUCC_NEED_PASSWORD);
+    printf_client(client, S_CTRL,
+        "214-The following commands are recognized."CRLF);
+    list_commands(client);
+    printf_client(client, S_CTRL, "214 Help OK."CRLF);
 }
