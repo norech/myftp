@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*.h": "c",
+        "typeinfo": "c"
+    },
+    "C_Cpp.default.includePath": [
+        "./common/include",
+        "./nm/include",
+        "./objdump/include"
+    ]
+}

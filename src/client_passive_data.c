@@ -1,0 +1,86 @@
+/*
+** EPITECH PROJECT, 2022
+** myftp
+** File description:
+** passive
+*/
+
+#include <alloca.h>
+#include <limits.h>
+#include <stdint.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/select.h>
+#include <netinet/in.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <errno.h>
+#include <string.h>
+#include <stdarg.h>
+#include <values.h>
+#include "util_ip.h"
+#include "util_error.h"
+#include "myftp.h"
+
+client_t *get_client_data(int fd, server_t *server)
+{
+    if (!FD_ISSET(fd, &server->readfds))
+        return NULL;
+    for (int i = 0; i < FD_SETSIZE; i++) {
+        if (server->clients[i].data_socket == fd
+            && server->clients[i].server == server)
+            return &server->clients[i];
+    }
+    return NULL;
+}
+
+client_t *get_client_srv_data(int fd, server_t *server)
+{
+    if (!FD_ISSET(fd, &server->readfds))
+        return NULL;
+    for (int i = 0; i < FD_SETSIZE; i++) {
+        if (server->clients[i].srv_data_socket == fd
+            && server->clients[i].server == server)
+            return &server->clients[i];
+    }
+    return NULL;
+}
+
+client_t *accept_client_data(client_t *client_s, server_t *server)
+{
+    struct sockaddr_in client;
+    socklen_t len = sizeof(client);
+
+    int fd = accept(client_s->srv_data_socket,
+        (struct sockaddr *)&client, &len);
+    if (fd < 0) {
+        perror("Can't accept data connection");
+        return NULL;
+    }
+    client_s->data_addr = client;
+    client_s->data_socket = fd;
+    FD_SET(fd, &server->readfds);
+    FD_SET(fd, &server->datafds);
+    return client_s;
+}
+
+int handle_data_socket_fd(int fd, server_t *server)
+{
+    client_t *client = get_client_srv_data(fd, server);
+    char buf[1024];
+    ssize_t n;
+
+    if (fd == client->srv_data_socket) {
+        client = accept_client_data(client, server);
+        return 0;
+    }
+    if (!is_client_connected(client, S_DATA))
+        return 0;
+    n = read_client(client, S_DATA, buf, sizeof(buf));
+    while (n > 0) {
+        write(1, buf, n);
+        printf_client(client, S_DATA, "hello world"CRLF);
+    }
+    return 0;
+}
