@@ -36,9 +36,9 @@ void server_loop(server_t *server)
     for (int fd = 0; fd < FD_SETSIZE; fd++) {
         if (!FD_ISSET(fd, &readfds))
             continue;
-        if (FD_ISSET(fd, &server->datafds)) {
-            handle_data_socket_fd(fd, server);
-        }
+        //if (FD_ISSET(fd, &server->datafds)) {
+        //    handle_data_socket_fd(fd, server);
+        //}
         if (FD_ISSET(fd, &server->ctrlfds)) {
             handle_ctrl_socket_fd(fd, server);
         }

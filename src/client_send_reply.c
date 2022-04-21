@@ -12,7 +12,7 @@
 static const struct response RESPONSES[] = {
     {CMD_OK, "Command okay"CRLF},
     {ERR_CMD_UNKNOWN, "Syntax error, command unrecognized"CRLF},
-    {SUCC_PASV_ENTER, "Entering Passive Mode.  (127,0,0,1,%d,%d)"CRLF},
+    {SUCC_PASV_ENTER, "Entering Passive Mode. (127,0,0,1,%d,%d)"CRLF},
     {ERR_CMD_NOT_IMPL, "Command not implemented"CRLF},
     {ERR_CMD_BAD_SEQ, "Bad sequence of commands"CRLF},
     {ERR_CMD_PARAM_NOT_IMPL, "Command not implemented for that parameter"CRLF},

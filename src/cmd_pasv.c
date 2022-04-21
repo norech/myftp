@@ -34,8 +34,8 @@ static void fill_addr(struct sockaddr_in *addr)
 static void finish_pasv_init(client_t *client, struct sockaddr_in *addr)
 {
     client->type = C_PASSIVE;
-    send_ctrl_reply(client, SUCC_PASV_ENTER, addr->sin_port / 256,
-        addr->sin_port % 256);
+    send_ctrl_reply(client, SUCC_PASV_ENTER, addr->sin_port % 256,
+        addr->sin_port / 256);
     FD_SET(client->srv_data_socket, &client->server->readfds);
     FD_SET(client->srv_data_socket, &client->server->datafds);
 }

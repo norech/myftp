@@ -62,6 +62,7 @@ client_t *accept_client_data(client_t *client_s, server_t *server)
     client_s->data_socket = fd;
     FD_SET(fd, &server->readfds);
     FD_SET(fd, &server->datafds);
+    printf("Accepting client data for client %d\n", client_s->ctrl_socket);
     return client_s;
 }
 
@@ -71,10 +72,11 @@ int handle_data_socket_fd(int fd, server_t *server)
     char buf[1024];
     ssize_t n;
 
-    if (fd == client->srv_data_socket) {
-        client = accept_client_data(client, server);
+    if (client != NULL) {
+        accept_client_data(client, server);
         return 0;
     }
+    client = get_client_data(fd, server);
     if (!is_client_connected(client, S_DATA))
         return 0;
     n = read_client(client, S_DATA, buf, sizeof(buf));

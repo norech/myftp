@@ -39,6 +39,7 @@ SRC =	src/util_ip.c \
 		src/cmd_cwd.c \
 		src/cmd_cdup.c \
 		src/cmd_dele.c \
+		src/cmd_list.c \
 		src/client_send_reply.c \
 		src/client_write.c \
 		src/client_read.c \

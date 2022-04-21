@@ -23,18 +23,29 @@
 #include "util_error.h"
 #include "myftp.h"
 
-void disconnect_client(client_t *client)
+void disconnect_client_data(client_t *client)
 {
+    bool disconnected = false;
     if (client->data_socket != -1) {
         FD_CLR(client->data_socket, &client->server->readfds);
         close(client->data_socket);
         client->data_socket = -1;
+        disconnected = true;
     }
     if (client->srv_data_socket != -1) {
         FD_CLR(client->srv_data_socket, &client->server->readfds);
         close(client->srv_data_socket);
         client->srv_data_socket = -1;
+        disconnected = true;
     }
+    if (disconnected) {
+        dprintf(2, "Client data disconnected\n");
+    }
+}
+
+void disconnect_client(client_t *client)
+{
+    disconnect_client_data(client);
     if (client->ctrl_socket != -1) {
         send_ctrl_reply(client, SERVICE_LOGOUT);
         FD_CLR(client->ctrl_socket, &client->server->readfds);

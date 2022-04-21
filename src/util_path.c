@@ -36,12 +36,12 @@ char *root_to_base(char *out, char *base, char *path)
         return out;
     }
     if (base[base_len - 1] == '/') {
-        if(base_len - 1 + strlen(path) >= PATH_MAX)
+        if (base_len - 1 + strlen(path) >= PATH_MAX)
             return NULL;
         strcpy(out, base);
         strcat(out, path + 1);
     } else {
-        if(base_len + strlen(path) >= PATH_MAX)
+        if (base_len + strlen(path) >= PATH_MAX)
             return NULL;
         strcpy(out, base);
         strcat(out, path);
@@ -72,20 +72,16 @@ char *resolve_path(char *out, char *root, char *abs_pwd, char *path)
     tmp = base_to_root(out, root, abs_pwd);
     if (tmp == NULL)
         return NULL;
-    printf("aa %s\n", tmp);
     memcpy(abs, tmp, PATH_MAX);
     tmp = resolve_relatives(out, "/", path);
     if (tmp == NULL)
         return NULL;
-    printf("bb %s\n", tmp);
     memcpy(abs, tmp, PATH_MAX);
     tmp = root_to_base(out, root, abs);
     if (tmp == NULL)
         return NULL;
-    printf("cc %s\n", tmp);
     memcpy(abs, tmp, PATH_MAX);
     if (!is_path_in_base(root, abs))
         return NULL;
-    printf("dd %s\n", tmp);
     return tmp;
 }

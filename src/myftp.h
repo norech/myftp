@@ -76,10 +76,13 @@ void cmd_port(client_t *client, int ac, char *av[]);
 void cmd_cwd(client_t *client, int ac, char *av[]);
 void cmd_cdup(client_t *client, int ac, char *av[]);
 void cmd_dele(client_t *client, int ac, char *av[]);
+void cmd_list(client_t *client, int ac, char *av[]);
 
 client_t *get_client_ctrl(int fd, server_t *server);
 
 bool is_client_connected(client_t *client, enum socket_type type);
+
+void disconnect_client_data(client_t *client);
 
 void disconnect_client(client_t *client);
 
@@ -88,6 +91,8 @@ enum socket_type get_socket_type(int fd, client_t *client);
 int get_client_socket(client_t *client, enum socket_type type);
 
 client_t *accept_client_ctrl(server_t *server);
+
+client_t *accept_client_data(client_t *client_s, server_t *server);
 
 ssize_t write_client(client_t *client, enum socket_type type, char *msg,
     size_t size);
