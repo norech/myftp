@@ -87,7 +87,7 @@ int handle_data_socket_fd(int fd, server_t *server)
     return 0;
 }
 
-int await_client_connection(client_t *client)
+int await_client_passive_connection(client_t *client)
 {
     fd_set set;
     int s;

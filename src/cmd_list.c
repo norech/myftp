@@ -50,7 +50,7 @@ static int resolve_dir(char *out, client_t *client, int ac, char **av)
 
 static void print_file(client_t *client, struct stat *st, char *name)
 {
-    char time[13];
+    char time[13] = {0};
     strncpy(time, ctime(&(st->st_mtime)) + 4, 12);
     printf_client(client, S_DATA, "%c%c%c%c%c%c%c%c%c%c",
     S_ISDIR(st->st_mode) ? 'd' : '-', (st->st_mode & S_IRUSR) ? 'r' : '-',
@@ -64,8 +64,8 @@ static void print_file(client_t *client, struct stat *st, char *name)
 
 static void list_file(client_t *client, char *path, char *name)
 {
-    char full_path[PATH_MAX];
-    struct stat st;
+    char full_path[PATH_MAX] = {0};
+    struct stat st = {0};
 
     if (resolve_path(full_path, client->server->pwd,
         path, name) == NULL)
@@ -81,9 +81,9 @@ static void list_files(client_t *client, char *path)
 {
     DIR *d;
     struct dirent *dir;
-    struct stat st;
-    char base[PATH_MAX];
-    char dirn[PATH_MAX];
+    struct stat st = {0};
+    char base[PATH_MAX] = {0};
+    char dirn[PATH_MAX] = {0};
     memcpy(base, path, PATH_MAX - 1);
     memcpy(dirn, path, PATH_MAX - 1);
     if (stat(path, &st) != 0)
@@ -102,7 +102,7 @@ static void list_files(client_t *client, char *path)
 
 void cmd_list(client_t *client, int ac UNUSED, char *av[] UNUSED)
 {
-    char dir[PATH_MAX];
+    char dir[PATH_MAX] = {0};
 
     if (!client->logged_in)
         return (void)send_ctrl_reply(client, ERR_NOT_LOGGED_IN);

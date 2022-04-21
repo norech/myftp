@@ -11,6 +11,7 @@
 #include <sys/select.h>
 #include <netinet/in.h>
 #include <stdbool.h>
+#include <sys/types.h>
 
 #define UNUSED __attribute__((unused))
 #define READBUF_SIZE 1024
@@ -44,6 +45,7 @@ struct client_s {
     char pwd[4096];
     bool logged_in;
     char readbuf[READBUF_SIZE];
+    struct sockaddr_in active_host;
     size_t readbuf_size;
     size_t readbuf_pos;
 };
@@ -64,6 +66,8 @@ typedef struct server_s server_t;
 #define SP " "
 
 size_t send_ctrl_reply(client_t *client, int code, ...);
+
+int connect_to_client_data(client_t *client);
 
 void cmd_pasv(client_t *client, int ac, char *av[]);
 void cmd_user(client_t *client, int ac, char *av[]);
@@ -89,6 +93,8 @@ void disconnect_client(client_t *client);
 enum socket_type get_socket_type(int fd, client_t *client);
 
 int get_client_socket(client_t *client, enum socket_type type);
+
+int await_client_passive_connection(client_t *client);
 
 int await_client_connection(client_t *client);
 

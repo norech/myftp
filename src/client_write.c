@@ -73,7 +73,7 @@ ssize_t writeln_client(client_t *client, enum socket_type type, char *msg)
 
 ssize_t printf_client(client_t *client, enum socket_type type, char *fmt, ...)
 {
-    static char msg[4096];
+    static char msg[4096] = {0};
     va_list ap;
 
     va_start(ap, fmt);

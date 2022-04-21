@@ -22,6 +22,7 @@ ifeq ($(DEBUG), 1)
 endif
 
 SRC =	src/util_ip.c \
+		src/util_ip2.c \
 		src/util_crlf.c \
 		src/util_error.c \
 		src/util_path.c \
@@ -47,6 +48,8 @@ SRC =	src/util_ip.c \
 		src/client_socket.c \
 		src/client_ctrl.c \
 		src/client_passive_data.c \
+		src/client_active_data.c \
+		src/client_data.c \
 
 TEST_FILES =	\
 
