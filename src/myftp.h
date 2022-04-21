@@ -90,6 +90,8 @@ enum socket_type get_socket_type(int fd, client_t *client);
 
 int get_client_socket(client_t *client, enum socket_type type);
 
+int await_client_connection(client_t *client);
+
 client_t *accept_client_ctrl(server_t *server);
 
 client_t *accept_client_data(client_t *client_s, server_t *server);

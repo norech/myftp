@@ -69,11 +69,12 @@ char *resolve_path(char *out, char *root, char *abs_pwd, char *path)
     char abs[PATH_MAX];
     char *tmp;
 
+    *out = '\0';
     tmp = base_to_root(out, root, abs_pwd);
     if (tmp == NULL)
         return NULL;
     memcpy(abs, tmp, PATH_MAX);
-    tmp = resolve_relatives(out, "/", path);
+    tmp = resolve_relatives(out, abs, path);
     if (tmp == NULL)
         return NULL;
     memcpy(abs, tmp, PATH_MAX);

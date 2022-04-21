@@ -86,3 +86,18 @@ int handle_data_socket_fd(int fd, server_t *server)
     }
     return 0;
 }
+
+int await_client_connection(client_t *client)
+{
+    fd_set set;
+    int s;
+    struct timeval tv = {5, 0};
+    FD_ZERO(&set);
+    FD_SET(client->srv_data_socket, &set);
+    s = select(client->srv_data_socket + 1, &set, NULL, NULL, &tv);
+    if (s <= 0) {
+        return -1;
+    }
+    accept_client_data(client, client->server);
+    return 0;
+}
