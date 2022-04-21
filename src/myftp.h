@@ -73,6 +73,9 @@ void cmd_pwd(client_t *client, int ac, char *av[]);
 void cmd_noop(client_t *client, int ac, char *av[]);
 void cmd_help(client_t *client, int ac, char *av[]);
 void cmd_port(client_t *client, int ac, char *av[]);
+void cmd_cwd(client_t *client, int ac, char *av[]);
+void cmd_cdup(client_t *client, int ac, char *av[]);
+void cmd_dele(client_t *client, int ac, char *av[]);
 
 client_t *get_client_ctrl(int fd, server_t *server);
 
@@ -156,3 +159,13 @@ enum response_code {
 };
 
 bool strip_crlf(char *buff, size_t len);
+
+char *resolve_relatives(char *out, char *base, char *path);
+
+bool is_path_in_base(char *base, char *path);
+
+char *root_to_base(char *out, char *base, char *path);
+
+char *base_to_root(char *out, char *base, char *path);
+
+char *resolve_path(char *out, char *root, char *abs_pwd, char *path);

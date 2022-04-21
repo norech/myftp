@@ -24,6 +24,8 @@ endif
 SRC =	src/util_ip.c \
 		src/util_crlf.c \
 		src/util_error.c \
+		src/util_path.c \
+		src/util_path_relative.c \
 		src/server.c \
 		src/cmd.c \
 		src/cmd_pasv.c \
@@ -34,6 +36,9 @@ SRC =	src/util_ip.c \
 		src/cmd_noop.c \
 		src/cmd_help.c \
 		src/cmd_port.c \
+		src/cmd_cwd.c \
+		src/cmd_cdup.c \
+		src/cmd_dele.c \
 		src/client_send_reply.c \
 		src/client_write.c \
 		src/client_read.c \

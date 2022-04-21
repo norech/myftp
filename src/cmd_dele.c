@@ -7,6 +7,7 @@
 
 #include <alloca.h>
 #include <limits.h>
+#include <linux/limits.h>
 #include <stdint.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -23,12 +24,20 @@
 #include "util_error.h"
 #include "myftp.h"
 
-void cmd_pwd(client_t *client, int ac UNUSED, char *av[] UNUSED)
+void cmd_dele(client_t *client, int ac UNUSED, char *av[] UNUSED)
 {
-    char pwd[PATH_MAX];
+    char file[PATH_MAX];
+
+    if (ac != 2)
+        return (void)send_ctrl_reply(client, ERR_ACTION_NOT_TAKEN_ACCESS);
     if (!client->logged_in)
         return (void)send_ctrl_reply(client, ERR_NOT_LOGGED_IN);
-    if (base_to_root(pwd, client->server->pwd, client->pwd) == NULL)
+    if (resolve_path(file, client->server->pwd,
+        client->pwd, av[1]) == NULL) {
         return (void)send_ctrl_reply(client, ERR_ACTION_NOT_TAKEN_STORAGE);
-    send_ctrl_reply(client, SUCC_PATHNAME, pwd);
+    }
+    if (remove(file) != 0) {
+        return (void)send_ctrl_reply(client, ERR_ACTION_NOT_TAKEN_ACCESS);
+    }
+    send_ctrl_reply(client, SUCC_FILE_ACTION);
 }

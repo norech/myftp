@@ -23,7 +23,10 @@ const struct cmd_s CMDS[] = {
     { "PWD", cmd_pwd },
     { "NOOP", cmd_noop },
     { "HELP", cmd_help },
-    { "PORT", cmd_port }
+    { "PORT", cmd_port },
+    { "CWD", cmd_cwd },
+    { "CDUP", cmd_cdup },
+    { "DELE", cmd_dele }
 };
 
 void list_commands(client_t *client)
