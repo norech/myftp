@@ -29,6 +29,8 @@ void cmd_user(client_t *client, int ac, char *av[])
 
     if (ac < 2)
         *client->user = '\0';
-    strncpy(client->user, av[1], (sizeof(client->user) / sizeof(char)) - 1);
+    else
+        strncpy(client->user, av[1],
+            (sizeof(client->user) / sizeof(char)) - 1);
     send_ctrl_reply(client, SUCC_NEED_PASSWORD);
 }
