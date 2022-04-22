@@ -22,6 +22,7 @@ const struct cmd_s CMDS[] = {
     { "EXIT", cmd_quit },
     { "PWD", cmd_pwd },
     { "NOOP", cmd_noop },
+    { "TYPE", cmd_noop },
     { "HELP", cmd_help },
     { "PORT", cmd_port },
     { "CWD", cmd_cwd },

@@ -26,7 +26,6 @@
 void cmd_user(client_t *client, int ac, char *av[])
 {
     client->logged_in = false;
-
     if (ac < 2)
         *client->user = '\0';
     else

@@ -51,7 +51,6 @@ client_t *accept_client_data(client_t *client_s, server_t *server UNUSED)
 {
     struct sockaddr_in client;
     socklen_t len = sizeof(client);
-
     int fd = accept(client_s->srv_data_socket,
         (struct sockaddr *)&client, &len);
     if (fd < 0) {

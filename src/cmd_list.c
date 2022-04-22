@@ -58,8 +58,9 @@ static void print_file(client_t *client, struct stat *st, char *name)
     (st->st_mode & S_IRGRP) ? 'r' : '-', (st->st_mode & S_IWGRP) ? 'w' : '-',
     (st->st_mode & S_IXGRP) ? 'x' : '-', (st->st_mode & S_IROTH) ? 'r' : '-',
     (st->st_mode & S_IWOTH) ? 'w' : '-', (st->st_mode & S_IXOTH) ? 'x' : '-');
-    printf_client(client, S_DATA, " %4d %-8d %-8d %12ld %s %s"CRLF,
-        (int)st->st_nlink, st->st_uid, st->st_gid, st->st_size, time, name);
+    printf_client(client, S_DATA, " %4d %-12s %-12s %12ld %s %s"CRLF,
+        (int)st->st_nlink, getpwuid(st->st_uid)->pw_name,
+        getgrgid(st->st_gid)->gr_name, st->st_size, time, name);
 }
 
 static void list_file(client_t *client, char *path, char *name)
