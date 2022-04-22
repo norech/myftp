@@ -46,7 +46,7 @@ void cmd(client_t *client, int ac, char *av[])
     long unsigned int i = 0;
 
     if (ac == 0)
-        return;
+        return (void)send_ctrl_reply(client, ERR_CMD_UNKNOWN);
     printf("[Client %d] Client sent command: [", client->ctrl_socket);
     for (int j = 0; j < ac; j++) {
         printf("'%s'", av[j]);
