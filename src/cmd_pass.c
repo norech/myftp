@@ -45,8 +45,6 @@ void cmd_pass(client_t *client, int ac, char *av[])
         return (void)send_ctrl_reply(client, ERR_NOT_LOGGED_IN);
     if (client->logged_in)
         return (void)send_ctrl_reply(client, SUCC_LOGGED_IN);
-    printf("%d %s\n", ac, av[1]);
-    printf("%d\n", strncmp(av[1], "gvfsd-ftp", 9));
     if (!is_valid_anonymous(client, ac, av))
         return (void)send_ctrl_reply(client, ERR_NOT_LOGGED_IN);
     client->logged_in = true;

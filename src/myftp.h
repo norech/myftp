@@ -184,3 +184,6 @@ char *root_to_base(char *out, char *base, char *path);
 char *base_to_root(char *out, char *base, char *path);
 
 char *resolve_path(char *out, char *root, char *abs_pwd, char *path);
+
+char *resolve_multiarg_path(char *out, client_t *client, int arrlen,
+    char **arr);

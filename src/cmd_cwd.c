@@ -33,8 +33,7 @@ void cmd_cwd(client_t *client, int ac UNUSED, char *av[] UNUSED)
     if (!client->logged_in)
         return (void)send_ctrl_reply(client, ERR_NOT_LOGGED_IN);
     memcpy(old_pwd, client->pwd, PATH_MAX);
-    if (resolve_path(client->pwd, client->server->pwd,
-        old_pwd, av[1]) == NULL) {
+    if (resolve_multiarg_path(client->pwd, client, ac - 1, av + 1) == NULL) {
         memcpy(client->pwd, old_pwd, PATH_MAX);
         return (void)send_ctrl_reply(client, ERR_ACTION_NOT_TAKEN_STORAGE);
     }

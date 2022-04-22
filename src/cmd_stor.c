@@ -37,9 +37,8 @@ static int resolve_dir(char *out, client_t *client, int ac, char **av)
         memcpy(out, client->pwd, PATH_MAX);
         return 0;
     }
-    if (resolve_path(out, client->server->pwd,
-        client->pwd, av[1]) == NULL) {
-            send_ctrl_reply(client, ERR_ACTION_NOT_TAKEN_STORAGE);
+    if (resolve_multiarg_path(out, client, ac - 1, av + 1) == NULL) {
+        send_ctrl_reply(client, ERR_ACTION_NOT_TAKEN_STORAGE);
         return -1;
     }
     if (access(client->pwd, X_OK) != 0) {
