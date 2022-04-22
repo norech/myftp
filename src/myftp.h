@@ -81,6 +81,8 @@ void cmd_cwd(client_t *client, int ac, char *av[]);
 void cmd_cdup(client_t *client, int ac, char *av[]);
 void cmd_dele(client_t *client, int ac, char *av[]);
 void cmd_list(client_t *client, int ac, char *av[]);
+void cmd_retr(client_t *client, int ac, char *av[]);
+void cmd_stor(client_t *client, int ac, char *av[]);
 
 client_t *get_client_ctrl(int fd, server_t *server);
 

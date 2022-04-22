@@ -48,7 +48,5 @@ int connect_to_client_data(client_t *client)
         client->data_socket = -1;
         return -1;
     }
-    FD_SET(client->data_socket, &client->server->readfds);
-    FD_SET(client->data_socket, &client->server->datafds);
     return 0;
 }

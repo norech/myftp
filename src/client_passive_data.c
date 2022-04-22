@@ -47,7 +47,7 @@ client_t *get_client_srv_data(int fd, server_t *server)
     return NULL;
 }
 
-client_t *accept_client_data(client_t *client_s, server_t *server)
+client_t *accept_client_data(client_t *client_s, server_t *server UNUSED)
 {
     struct sockaddr_in client;
     socklen_t len = sizeof(client);
@@ -60,8 +60,6 @@ client_t *accept_client_data(client_t *client_s, server_t *server)
     }
     client_s->data_addr = client;
     client_s->data_socket = fd;
-    FD_SET(fd, &server->readfds);
-    FD_SET(fd, &server->datafds);
     printf("Accepting client data for client %d\n", client_s->ctrl_socket);
     return client_s;
 }

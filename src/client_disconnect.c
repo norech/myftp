@@ -39,7 +39,7 @@ void disconnect_client_data(client_t *client)
         disconnected = true;
     }
     if (disconnected) {
-        dprintf(2, "Client data disconnected\n");
+        dprintf(2, "Client %d data disconnected\n", client->ctrl_socket);
     }
 }
 
