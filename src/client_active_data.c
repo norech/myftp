@@ -26,9 +26,8 @@
 static void fill_addr(struct sockaddr_in *addr, client_t *client,
     struct sockaddr_in *active_addr)
 {
-    memset(addr, 0, sizeof(*addr));
+    memset(addr, 0, sizeof(struct sockaddr_in));
     active_addr->sin_family = AF_INET;
-    active_addr->sin_port = ntohs(active_addr->sin_port);
     memcpy(addr, active_addr, sizeof(struct sockaddr_in));
     memcpy(&client->active_host, active_addr, sizeof(struct sockaddr_in));
 }
