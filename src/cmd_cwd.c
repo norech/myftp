@@ -28,7 +28,7 @@ void cmd_cwd(client_t *client, int ac UNUSED, char *av[] UNUSED)
 {
     char old_pwd[PATH_MAX];
 
-    if (ac != 2)
+    if (ac < 2)
         return (void)send_ctrl_reply(client, ERR_ACTION_NOT_TAKEN_ACCESS);
     if (!client->logged_in)
         return (void)send_ctrl_reply(client, ERR_NOT_LOGGED_IN);

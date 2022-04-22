@@ -28,14 +28,14 @@ void cmd_dele(client_t *client, int ac UNUSED, char *av[] UNUSED)
 {
     char file[PATH_MAX];
 
-    if (ac != 2)
+    if (ac < 2)
         return (void)send_ctrl_reply(client, ERR_ACTION_NOT_TAKEN_ACCESS);
     if (!client->logged_in)
         return (void)send_ctrl_reply(client, ERR_NOT_LOGGED_IN);
-    if (resolve_path(file, client->server->pwd,
-        client->pwd, av[1]) == NULL) {
+    if (resolve_multiarg_path(file, client, ac - 1, av + 1) == NULL) {
         return (void)send_ctrl_reply(client, ERR_ACTION_NOT_TAKEN_STORAGE);
     }
+    printf("%s\n", file);
     if (remove(file) != 0) {
         return (void)send_ctrl_reply(client, ERR_ACTION_NOT_TAKEN_ACCESS);
     }
