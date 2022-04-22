@@ -26,6 +26,7 @@ SRC =	src/util_ip.c \
 		src/util_crlf.c \
 		src/util_error.c \
 		src/util_path.c \
+		src/util_path_multiarg.c \
 		src/util_path_relative.c \
 		src/server.c \
 		src/cmd.c \
