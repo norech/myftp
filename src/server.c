@@ -12,6 +12,7 @@
 #include <sys/socket.h>
 #include <sys/select.h>
 #include <netinet/in.h>
+#include <signal.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -46,6 +47,7 @@ void init_server(server_t *server, int port)
 {
     struct sockaddr_in addr;
 
+    signal(SIGPIPE, SIG_IGN);
     server->clients = calloc(FD_SETSIZE, sizeof(client_t));
     server->ctrl_socket = socket(AF_INET, SOCK_STREAM, 0);
     addr.sin_family = AF_INET;
