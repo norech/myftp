@@ -28,7 +28,7 @@ bool is_valid_anonymous(client_t *client, int ac, char *av[])
     int len;
 
     if (strcmp(client->user, "Anonymous") == 0) {
-        if (ac == 2 || strcmp(av[1], "") == 0)
+        if (ac == 1 || strcmp(av[1], "") == 0)
             return true;
     }
     if (strcmp(client->user, "anonymous") == 0) {
