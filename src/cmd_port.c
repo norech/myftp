@@ -36,5 +36,5 @@ void cmd_port(client_t *client, int ac UNUSED, char *av[] UNUSED)
         || *end != '\0')
         return (void)send_ctrl_reply(client, ERR_CMD_UNKNOWN);
     client->type = C_ACTIVE;
-    send_ctrl_reply(client, TRANSFER_DATA_OPEN);
+    send_ctrl_reply(client, CMD_OK);
 }

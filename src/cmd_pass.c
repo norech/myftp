@@ -26,7 +26,7 @@
 void cmd_pass(client_t *client, int ac, char *av[])
 {
     if (ac != 1 && ac != 2)
-        return (void)send_ctrl_reply(client, ERR_CMD_UNKNOWN);
+        return (void)send_ctrl_reply(client, ERR_CMD_PARAM_NOT_IMPL);
     if (client->logged_in)
         return (void)send_ctrl_reply(client, SUCC_LOGGED_IN);
     if (strcmp(client->user, "Anonymous") != 0

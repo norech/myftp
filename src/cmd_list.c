@@ -77,18 +77,18 @@ static void list_file(client_t *client, char *path, char *name)
     print_file(client, &st, name);
 }
 
-static void list_files(client_t *client, char *path)
+static void list_files(client_t *client, char *path, struct stat *st)
 {
     DIR *d;
     struct dirent *dir;
-    struct stat st = {0};
     char base[PATH_MAX] = {0};
     char dirn[PATH_MAX] = {0};
     memcpy(base, path, PATH_MAX - 1);
     memcpy(dirn, path, PATH_MAX - 1);
-    if (stat(path, &st) != 0)
+    if (stat(path, st) != 0)
         return;
-    if (!S_ISDIR(st.st_mode)) {
+    send_ctrl_reply(client, FILE_STATUS_OKAY);
+    if (!S_ISDIR(st->st_mode)) {
         return list_file(client, dirname(dirn), basename(base));
     }
     d = opendir(path);
@@ -103,6 +103,7 @@ static void list_files(client_t *client, char *path)
 void cmd_list(client_t *client, int ac UNUSED, char *av[] UNUSED)
 {
     char dir[PATH_MAX] = {0};
+    struct stat st = {0};
 
     if (!client->logged_in)
         return (void)send_ctrl_reply(client, ERR_NOT_LOGGED_IN);
@@ -115,8 +116,7 @@ void cmd_list(client_t *client, int ac UNUSED, char *av[] UNUSED)
             disconnect_client_data(client);
             return (void)send_ctrl_reply(client, ERR_CANT_OPEN_DATACON);
         }
-        send_ctrl_reply(client, FILE_STATUS_OKAY);
-        list_files(client, dir);
+        list_files(client, dir, &st);
         send_ctrl_reply(client, SUCC_DATACON_CLOSE);
         disconnect_client_data(client);
         exit(0);

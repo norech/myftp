@@ -26,5 +26,5 @@
 
 void cmd_cdup(client_t *client, int ac UNUSED, char *av[] UNUSED)
 {
-    cmd_cwd(client, 2, (char *[]){"cwd", "..", NULL});
+    cmd_cwd(client, 2, (char *[]){"cdup", "..", NULL});
 }

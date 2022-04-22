@@ -42,5 +42,7 @@ void cmd_cwd(client_t *client, int ac UNUSED, char *av[] UNUSED)
         memcpy(client->pwd, old_pwd, PATH_MAX);
         return (void)send_ctrl_reply(client, ERR_ACTION_NOT_TAKEN_ACCESS);
     }
+    if (strcmp(av[0], "cdup") == 0)
+        return (void)send_ctrl_reply(client, CMD_OK);
     send_ctrl_reply(client, SUCC_FILE_ACTION);
 }

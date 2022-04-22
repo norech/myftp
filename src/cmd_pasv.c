@@ -44,10 +44,10 @@ void cmd_pasv(client_t *client, int ac UNUSED, char *av[] UNUSED)
 {
     struct sockaddr_in addr;
     uint32_t len = sizeof(addr);
-    if (client->data_socket != -1)
-        return (void)send_ctrl_reply(client, TRANSFER_DATA_ALREADY_OPEN);
     if (!client->logged_in)
         return (void)send_ctrl_reply(client, ERR_NOT_LOGGED_IN);
+    if (client->srv_data_socket != -1)
+        return (void)send_ctrl_reply(client, TRANSFER_DATA_ALREADY_OPEN);
     fill_addr(&addr);
     client->srv_data_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (bind(client->srv_data_socket, (struct sockaddr *)&addr,
