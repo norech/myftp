@@ -68,13 +68,16 @@ void init_server(server_t *server, int port)
 int main(int ac, char *av[])
 {
     struct server_s server;
+    int port;
 
     if (ac != 3)
         fatal("Usage: %s port path", av[0]);
     if (access(av[2], X_OK) != 0)
         fatal("Can't access '%s'", av[2]);
     server.pwd = av[2];
-    init_server(&server, atoi(av[1]));
+    port = atoi(av[1]);
+    init_server(&server, port);
+    printf("Server started on port %d\n", port);
     while (1)
         server_loop(&server);
     close(server.ctrl_socket);
