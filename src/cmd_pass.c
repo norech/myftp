@@ -32,6 +32,8 @@ bool is_valid_anonymous(client_t *client, int ac, char *av[])
             return true;
     }
     if (strcmp(client->user, "anonymous") == 0) {
+        if (ac == 1)
+            return false;
         len = strlen(av[1]);
         if (len > 12 && strcmp(av[1] + len - 12, "@example.com") == 0)
             return true;
