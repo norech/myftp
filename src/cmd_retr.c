@@ -41,7 +41,7 @@ static int resolve_dir(char *out, client_t *client, int ac, char **av)
         send_ctrl_reply(client, ERR_ACTION_NOT_TAKEN_STORAGE);
         return -1;
     }
-    if (access(client->pwd, X_OK) != 0) {
+    if (access(client->pwd, R_OK) != 0) {
         send_ctrl_reply(client, ERR_ACTION_NOT_TAKEN_ACCESS);
         return -1;
     }
