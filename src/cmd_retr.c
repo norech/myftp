@@ -52,7 +52,7 @@ static void retrieve_file(client_t *client, char *file, unsigned char *buffer)
 {
     int fd = open(file, O_RDONLY);
     if (fd == -1)
-        return (void)send_ctrl_reply(client, ERR_ACTION_NOT_TAKEN_STORAGE);
+        return (void)send_ctrl_reply(client, ERR_ACTION_NOT_TAKEN_ACCESS);
     send_ctrl_reply(client, FILE_STATUS_OKAY);
     for (int nb_read; true;) {
         nb_read = read(fd, buffer, 2048);
