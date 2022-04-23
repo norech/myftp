@@ -58,13 +58,13 @@ static void retrieve_file(client_t *client, char *file, unsigned char *buffer)
         nb_read = read(fd, buffer, 2048);
         if (nb_read == -1) {
             close(fd);
-            return (void)send_ctrl_reply(client, ERR_ACTION_ABORTED_STORAGE);
+            return (void)send_ctrl_reply(client, ERR_ACTION_ABORTED_INTERNAL);
         }
         if (nb_read == 0)
             break;
         if (write(client->data_socket, buffer, nb_read) == -1) {
             close(fd);
-            return (void)send_ctrl_reply(client, ERR_ACTION_ABORTED_INTERNAL);
+            return (void)send_ctrl_reply(client, ERR_CON_CLOSED);
         }
     }
     close(fd);
