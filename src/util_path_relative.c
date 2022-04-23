@@ -18,16 +18,15 @@ static int resolve_token(char *resolved, char *token)
             *tmp = '\0';
         if (tmp == resolved)
             strcpy(resolved, "/");
-    }
-    else if (strcmp(token, ".") == 0)
         return 0;
-    else {
-        if (strlen(resolved) + strlen(token) + 1 > PATH_MAX)
-            return -1;
-        if (strcmp(resolved, "/") != 0)
-            strcat(resolved, "/");
-        strcat(resolved, token);
     }
+    if (strcmp(token, ".") == 0)
+        return 0;
+    if (strlen(resolved) + strlen(token) + 1 > PATH_MAX)
+        return -1;
+    if (strcmp(resolved, "/") != 0)
+        strcat(resolved, "/");
+    strcat(resolved, token);
     return 0;
 }
 
